@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using projeto_uc14.Models;
 using projeto_uc14.Repositories;
@@ -8,6 +9,7 @@ namespace projeto_uc14.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LivroController : ControllerBase
     {
         private readonly LivroRepository _livroRepository;
@@ -47,7 +49,7 @@ namespace projeto_uc14.Controllers
                 throw new Exception(e.Message);
             }
         }
-
+        [Authorize(Roles = "1")]
         [HttpPost]
         public IActionResult Cadastrar(Livro l)
         {
